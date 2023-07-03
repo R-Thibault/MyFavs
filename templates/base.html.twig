@@ -15,9 +15,11 @@
         {% endblock %}
         <!--  JavaScript -->
         {# <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script> #}
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async defer></script>
+
         
     </head>
-    <body>
+    <body class="d-flex flex-column ">
         {% include '_partials/_header.html.twig' %}
         {% block body %}{% endblock %}
         {% include '_partials/_footer.html.twig' %}
