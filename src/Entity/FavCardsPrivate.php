@@ -44,6 +44,7 @@ class FavCardsPrivate
     public function __construct()
     {
         $this->Tag = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
