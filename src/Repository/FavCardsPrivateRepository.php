@@ -42,11 +42,11 @@ class FavCardsPrivateRepository extends ServiceEntityRepository
 //    /**
 //     * @return FavCardsPrivate[] Returns an array of FavCardsPrivate objects
 //     */
-//    public function findByExampleField($value): array
+//    public function findByAuthor($user): array
 //    {
 //        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
+//            ->andWhere('f.author = :val')
+//            ->setParameter('val', $user)
 //            ->orderBy('f.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()

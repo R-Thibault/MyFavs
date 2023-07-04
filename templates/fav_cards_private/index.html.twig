@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column justify-content-center align-items-center flex-grow-1 m-2">
+
+    <div class="container">
+    <div class="col">
+    <div class="row row-cols-1 row-cols-md-3 g-4" data-masonry='{"percentPosition": true }'>
+    {% include 'fav_cards_private/_gallery.html.twig' %}
+    </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

@@ -159,4 +159,5 @@ class FavCardsPublic
 
         return $this;
     }
+
 }

@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     public function index(FavCardsPublicRepository $favCardsPublicRepository): Response
     {
         $cardsPublic = $favCardsPublicRepository->findAll();
-
+        shuffle($cardsPublic);
         return $this->render('home/index.html.twig', compact('cardsPublic'));
     }
 }
