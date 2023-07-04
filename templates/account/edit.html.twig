@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quai Antique | Gestion du compte{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column  flex-grow-1">
+                
+    <div class=" p-3 mx-3 my-auto align-self-center">
+    <h1>Gestion du compte</h1>
+    
+    {{form_start(userEditForm)}}
+{{form_row(userEditForm.nickname)}}
+
+    {{form_row(userEditForm.email)}}
+
+    
+<button type="submit" class="btn btn-primary">Modifier</button>
+    <a class="m-3" href="{{ path('app_forgot_password_request')}}">Mots de passe oublié</a>
+</form>
+{{form_end(userEditForm)}}
+
+   
+    
+    
+    
+    
+    </div>
+    </div>
+
+{% endblock %}

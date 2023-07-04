@@ -13,10 +13,7 @@ class UserEditFormType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('lastname')
-            ->add('firstname')
-            ->add('nb_of_persons')
-            ->add('allergies')
+            ->add('nickname')
         ;
     }
 
