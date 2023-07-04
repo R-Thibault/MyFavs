@@ -20,11 +20,34 @@
         </li>
       </ul>
     </div>
-    <div>
-    <a href="{{ path('app_register')}}" class="btn btn-primary">Créé un compte
-    </a>
-    <a href="{{ path('app_login')}}" class="btn btn-primary">Connexion
-    </a>
-    </div>
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+   {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item btn btn-primary mx-1">
+             <a class="nav-link text-white" href="{{ path('admin') }}">Gestions</a>
+           </li>
+         <li class="nav-item btn btn-primary mx-1">
+          <a class="nav-link text-white" aria-current="page" href="{{path('app_logout')}}">Déconnexion</a>
+        </li>
+        {% elseif is_granted('ROLE_USER') %}
+        <li class="nav-item btn btn-primary mx-1">
+          <a class="nav-link text-white" aria-current="page" href="{{path('')}}">Mon Espace</a>
+        </li>
+        <li class="nav-item btn btn-primary mx-1">
+          <a class="nav-link text-white" aria-current="page" href="{{path('app_account_index')}}">Mon Compte</a>
+        </li>
+            <li class="nav-item btn btn-primary mx-1">
+          <a class="nav-link text-white" aria-current="page" href="{{path('app_logout')}}">Déconnexion</a>
+        </li>           
+
+    
+        {% else %}
+          <li class="nav-item btn btn-primary mx-1">
+          <a class="nav-link text-white" aria-current="page" href="{{path('app_login')}}">Connexion</a>
+        </li>
+        <li class="nav-item btn btn-primary mx-1">
+          <a class="nav-link text-white" aria-current="page" href="{{path('app_register')}}">S'inscrire</a>
+        </li>
+  {% endif %}
+  </ul>
   </div>
 </nav>
