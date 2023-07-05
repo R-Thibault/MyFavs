@@ -1,16 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}FavCardsPrivate index{% endblock %}
 
 {% block body %}
-<div class="d-flex flex-column justify-content-center align-items-center flex-grow-1 m-2">
-
-    <div class="container">
+    <h1>Gestion de vos favoris</h1>
+    
+   
     <div class="col">
-    <div class="row row-cols-1 row-cols-md-3 g-4" data-masonry='{"percentPosition": true }'>
-    {% include 'fav_cards_private/_gallery.html.twig' %}
+    <a href="{{ path('app_fav_cards_private_new')}}" class="btn btn-primary">Ajouter un favoris</a>
+    <a href="{{ path('app_tags_new')}}" class="btn btn-primary">Ajouter un tag</a>
+    
     </div>
-    </div>
-    </div>
+    <div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Title</th>
+                <th>Description</th>
+                <th>Link</th>
+                <th>Author</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fav_cards_private in cardsPrivate %}
+            <tr>
+                
+                <td>{{ fav_cards_private.title }}</td>
+                <td>{{ fav_cards_private.description }}</td>
+                <td>{{ fav_cards_private.link }}</td>
+                <td>{{ fav_cards_private.author.nickname }}</td>
+                <td>{{ fav_cards_private.createdAt ? fav_cards_private.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ fav_cards_private.updatedAt ? fav_cards_private.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_fav_cards_private_show', {'id': fav_cards_private.id}) }}">show</a>
+                    <a href="{{ path('app_fav_cards_private_edit', {'id': fav_cards_private.id}) }}">edit</a>
+                    <a href="{{ path('app_fav_cards_private_delete', {'id': fav_cards_private.id}) }}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
+    <a href="{{ path('app_fav_cards_private_new') }}">Create new</a>
 {% endblock %}
