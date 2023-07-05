@@ -1,0 +1,16 @@
+<div class="col">
+<div class="card text-center js-filterable" id="cardsPublic-{{card.id}}">
+ 
+  {# <img src="{{cardsPublic.image}}" alt="" class="card-img-top">#}
+  <div class="card-body">
+    <h5 class="card-title">{{card.title}}</h5>
+    <p class="card-text text-muted">{{card.description}}</p>
+    <p class="card-text text-muted">{{card.Author.nickname}}</p>
+  </div>
+  <div class="m-1">
+  {% for tag in card.Tag %}
+    <em class="text-muted text-italic m-1">#{{tag.tag}}</em>
+  {% endfor %}
+  </div>
+</div>
+</div>

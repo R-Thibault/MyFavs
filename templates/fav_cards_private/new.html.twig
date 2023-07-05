@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FavCardsPrivate{% endblock %}
+
+{% block body %}
+    <h1>Create new FavCardsPrivate</h1>
+
+    {{ include('fav_cards_private/_form.html.twig') }}
+
+    <a href="{{ path('app_fav_cards_private_index') }}">back to list</a>
+{% endblock %}

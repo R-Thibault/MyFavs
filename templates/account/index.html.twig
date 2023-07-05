@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Fav's | Mon Compte{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column  flex-grow-1">
+                <h1 class="my-auto align-self-center">Mon Compte</h1>
+    <div class=" p-3 mx-3 my-auto align-self-center">
+                    <div class="col">
+                        <h2>Informations personnelles</h2>
+                        <p>Pseudo : {{ user.nickname }}</p>
+                        <p>Email : {{ user.email }}</p>
+                    
+                        <h3>Modifier mes informations</h3>
+                        <a href="{{ path('app_account_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier</a>
+                </div>
+            
+        </div>
+    </div>
+{% endblock %}
