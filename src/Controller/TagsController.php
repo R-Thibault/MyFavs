@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Tags;
-use App\Form\TagsType;
+use App\Form\TagFormType;
 use App\Repository\TagsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class TagsController extends AbstractController
     public function new(Request $request, TagsRepository $tagsRepository): Response
     {
         $tag = new Tags();
-        $form = $this->createForm(TagsType::class, $tag);
+        $form = $this->createForm(TagFormType::class, $tag);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

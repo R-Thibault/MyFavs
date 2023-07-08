@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\FavCardsPrivate;
 use App\Form\FavCardsPrivateType;
+use App\Repository\UsersRepository;
 use App\Repository\FavCardsPrivateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,16 +32,17 @@ class FavCardsPrivateController extends AbstractController
     }
 
     #[Route('/new', name: '_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FavCardsPrivateRepository $favCardsPrivateRepository): Response
+    public function new(Request $request, FavCardsPrivateRepository $favCardsPrivateRepository, EntityManagerInterface $entityManager, UsersRepository $usersRepository): Response
     {
         $favCardsPrivate = new FavCardsPrivate();
         $form = $this->createForm(FavCardsPrivateType::class, $favCardsPrivate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $favCardsPrivateRepository->save($favCardsPrivate, true);
+            $entityManager->persist($favCardsPrivate);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_fav_cards_private_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('fav_cards_private/new.html.twig', [

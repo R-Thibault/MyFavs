@@ -5,11 +5,15 @@ namespace App\DataFixtures;
 use App\Entity\Tags;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
 
 class TagsFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+
+      $faker = Faker\Factory::create('fr_FR');
+
       $tags = [
         'PHP',
         'Symfony',
@@ -58,6 +62,7 @@ class TagsFixtures extends Fixture
       foreach ($tags as $tag) {
         $newTag = new Tags();
         $newTag->setTag($tag);
+        $newTag->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-3 months', 'now')));
         $manager->persist($newTag);
     }
   

@@ -3,9 +3,14 @@
 {% block title %}New FavCardsPrivate{% endblock %}
 
 {% block body %}
+<div class="d-flex flex-column  flex-grow-1">
+                
+    <div class=" p-3 mx-3 my-auto align-self-center">
     <h1>Create new FavCardsPrivate</h1>
 
     {{ include('fav_cards_private/_form.html.twig') }}
 
     <a href="{{ path('app_fav_cards_private_index') }}">back to list</a>
+    </div>
+</div>
 {% endblock %}

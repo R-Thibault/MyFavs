@@ -13,8 +13,7 @@ class TagFormType extends AbstractType
     {
         $builder
             ->add('tag')
-            ->add('favCardsPublics')
-            ->add('favCardsPrivates')
+            
         ;
     }
 

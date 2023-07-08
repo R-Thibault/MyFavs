@@ -25,7 +25,7 @@ class FavCardsPrivate
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true ,options: ['default' => 1])]
     private ?int $status = null;
 
     #[ORM\Column]

@@ -24,10 +24,14 @@ class Tags
     #[ORM\ManyToMany(targetEntity: FavCardsPrivate::class, mappedBy: 'Tag')]
     private Collection $favCardsPrivates;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
     public function __construct()
     {
         $this->favCardsPublics = new ArrayCollection();
         $this->favCardsPrivates = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -104,5 +108,17 @@ class Tags
     public function __toString(): string
     {
         return $this->tag;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
     }
 }
