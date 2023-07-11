@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\FavCardsPrivate;
+use App\Entity\FavCardsPublic;
 use App\Form\FavCardsPrivateType;
+use App\Form\CardRequestFormType;
 use App\Repository\UsersRepository;
 use App\Repository\FavCardsPrivateRepository;
+use App\Repository\FavCardsPublicRepository;
+use App\Repository\TagsRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,19 +65,23 @@ class FavCardsPrivateController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: '_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, FavCardsPrivate $favCardsPrivate, FavCardsPrivateRepository $favCardsPrivateRepository): Response
+    public function edit(Request $request, FavCardsPrivate $favCardsPrivate, TagsRepository $tagsRepository, EntityManagerInterface $entityManager, FavCardsPrivateRepository $favCardsPrivateRepository): Response
     {
+        $favCardsPrivate = $favCardsPrivateRepository->findSearch();
+
         $form = $this->createForm(FavCardsPrivateType::class, $favCardsPrivate);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $favCardsPrivateRepository->save($favCardsPrivate, true);
+            $entityManager->persist($favCardsPrivate);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_fav_cards_private_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('fav_cards_private/edit.html.twig', [
             'fav_cards_private' => $favCardsPrivate,
+            // 'Tag' => $Tag,
             'form' => $form->createView(),
         ]);
     }
@@ -86,4 +95,6 @@ class FavCardsPrivateController extends AbstractController
 
         return $this->redirectToRoute('app_fav_cards_private_index', [], Response::HTTP_SEE_OTHER);
     }
+
+   
 }

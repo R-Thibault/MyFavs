@@ -3,13 +3,26 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<div class="d-flex flex-column justify-content-center align-items-center flex-grow-1 m-2">
+<div class="mx-3 d-flex flex-column  justify-content-center  flex-grow-1  js-filter">
+<div class="m-3 border-bottom">
+<h1 class=" my-3 mx-md-5 mx-auto">Favoris</h1>
+</div>
+    <div class="row">
+    <div class="col-md-2 ">
+            {% include 'home/_filter.html.twig' with {form : form} only %}
 
-    <div class="container">
-    <div class="col">
+        </div>
+    <div class="col-md-10">
+    <div class="d-flex justify-content-end m-2 js-filter-sorting">
+        {% include 'home/_sorting.html.twig' %}
+        </div>
     <div class="row row-cols-1 row-cols-md-3 g-4" data-masonry='{"percentPosition": true }'>
     {% include 'home/_gallery.html.twig' %}
     </div>
+    <div class="mt-4 js-filter-pagination">
+                
+                    {% include 'home/_pagination.html.twig' %}
+                </div>
     </div>
     </div>
 </div>

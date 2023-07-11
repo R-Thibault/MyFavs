@@ -1,0 +1,17 @@
+  {{form_start(form, {attr: {class: 'filter js-filter-form'}})}}
+  <div class="spinner-border js-loading" role="status" aria-hidden="true" style="display: none">
+  <span class="sr-only">Chargement...</span>
+  </div>
+
+  {{form_row(form.searchText)}}
+
+  <h4>Tags</h4>
+  <div class="d-flex flex-row">
+
+  {{form_row(form.tags, {attr: {class: 'd-flex flex-row flex-wrap gap-1'}})}}
+  </div>
+
+
+
+  <button type="submit" class="btn btn-primary w-100 mt-4">Filter</button>
+  {{form_end(form)}}

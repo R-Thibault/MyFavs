@@ -39,6 +39,8 @@ class FavCardsPrivateRepository extends ServiceEntityRepository
         }
     }
 
+    
+
 //    /**
 //     * @return FavCardsPrivate[] Returns an array of FavCardsPrivate objects
 //     */

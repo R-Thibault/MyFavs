@@ -5,11 +5,12 @@
   <div class="card-body">
     <h5 class="card-title">{{card.title}}</h5>
     <p class="card-text text-muted">{{card.description}}</p>
+    <a href="{{card.link}}" class="btn btn-primary my-1">Aller sur le site</a>
     <p class="card-text text-muted">{{card.Author.nickname}}</p>
   </div>
   <div class="m-1">
   {% for tag in card.Tag %}
-    <em class="text-muted text-italic m-1">#{{tag.tag}}</em>
+    <em class="text-muted text-italic m-1">#{{tag.name}}</em>
   {% endfor %}
   </div>
 </div>

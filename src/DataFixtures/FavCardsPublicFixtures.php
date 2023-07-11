@@ -24,7 +24,7 @@ class FavCardsPublicFixtures extends Fixture implements DependentFixtureInterfac
               $favCardsPrivate->setTitle($faker->sentence());
               $favCardsPrivate->setDescription($faker->paragraph());
               $favCardsPrivate->setLink($faker->url());
-              $favCardsPrivate->setStatus('2');
+              $favCardsPrivate->setStatus('3');
               $favCardsPrivate->setAuthor($user);
               $counter = $faker->numberBetween(1, 3);
               for ($j = 1; $j <= $counter; $j++) {

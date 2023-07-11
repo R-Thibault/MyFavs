@@ -16,13 +16,14 @@
         <thead>
             <tr>
                 
-                <th>Title</th>
+                <th>Titre</th>
                 <th>Description</th>
-                <th>Link</th>
-                <th>Author</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>actions</th>
+                <th>Lien</th>
+                <th>Auteur</th>
+                <th>Création</th>
+                <th>Modification</th>
+                <th>Tags</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,14 +32,21 @@
                 
                 <td>{{ fav_cards_private.title }}</td>
                 <td>{{ fav_cards_private.description }}</td>
-                <td>{{ fav_cards_private.link }}</td>
+                <td><a href="{{ fav_cards_private.link }}">{{ fav_cards_private.link }}</a></td>
                 <td>{{ fav_cards_private.author.nickname }}</td>
                 <td>{{ fav_cards_private.createdAt ? fav_cards_private.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ fav_cards_private.updatedAt ? fav_cards_private.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_fav_cards_private_show', {'id': fav_cards_private.id}) }}">show</a>
-                    <a href="{{ path('app_fav_cards_private_edit', {'id': fav_cards_private.id}) }}">edit</a>
-                    <a href="{{ path('app_fav_cards_private_delete', {'id': fav_cards_private.id}) }}">delete</a>
+                    {% for tag in fav_cards_private.tag %}
+                        <em class="text-muted text-italic m-1">#{{tag.name}}</em>
+                    {% else %}
+                        <span class="badge badge-primary">No tags</span>
+                    {% endfor %}
+                <td>
+                    <a href="{{ path('app_fav_cards_private_show', {'id': fav_cards_private.id}) }}">Voir</a>
+                    <a href="{{ path('app_fav_cards_private_edit', {'id': fav_cards_private.id}) }}">Editer</a>
+                    <a href="{{ path('app_fav_cards_private_delete', {'id': fav_cards_private.id}) }}">Supprimer</a>
+                    <a href="{{ path('app_fav_cards_public_request', {'id': fav_cards_private.id}) }}">Requête</a>
                 </td>
             </tr>
         {% else %}

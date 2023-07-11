@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+{{ form_row(form.title, {'value' : favCard.title})}}
+ {{ form_row(form.description, {'value' : favCard.description})}}
+ {{ form_row(form.link, {'value' : favCard.link})}}
+<div class="d-flex flex-column">
+<h3>Tags</h3>
+{% for tag in favCard.Tag %}
+<em class="text-muted text-italic m-1">#{{tag.tag}}</em>
+{% endfor %}
+</div>
+
+ <div class="d-none">
+ {{ form_row(form.Tag)}}
+ {{ form_row(form.Author, {'value': app.user.id})}}
+ {{ form_row(form.status, {'value': 3})}}
+ </div>
+
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

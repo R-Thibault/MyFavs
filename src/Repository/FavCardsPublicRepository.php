@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\FavCardsPublic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<FavCardsPublic>
@@ -16,9 +19,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class FavCardsPublicRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, FavCardsPublic::class);
+        $this->paginator = $paginator;
     }
 
     public function save(FavCardsPublic $entity, bool $flush = false): void
@@ -37,6 +41,37 @@ class FavCardsPublicRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @return FavCardsPublic[] Returns an array of FavCardsPublic objects
+     */
+    public function findSearch(SearchData $search) : PaginationInterface
+    {   
+        $query = $this
+        ->createQueryBuilder('favCardsPublic')
+        ->select('tag', 'favCardsPublic')
+        ->join('favCardsPublic.Tag', 'tag');
+
+        if (!empty($search->searchText)) {
+            $query = $query
+                ->andWhere('favCardsPublic.title LIKE :searchText')
+                ->setParameter('searchText', "%{$search->searchText}%");
+    
+        }
+
+        if (!empty($search->tags)) {
+            $query = $query
+                ->andWhere('tag.id IN (:tags)')
+                ->setParameter('tags', $search->tags);
+        }
+
+        $query = $query->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            $search->page,
+            12
+        );
     }
 
 //    /**

@@ -6,6 +6,7 @@ use App\Repository\TagsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\DocBlock\Tag;
 
 #[ORM\Entity(repositoryClass: TagsRepository::class)]
 class Tags
@@ -16,7 +17,7 @@ class Tags
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $tag = null;
+    private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: FavCardsPublic::class, mappedBy: 'Tag')]
     private Collection $favCardsPublics;
@@ -39,14 +40,14 @@ class Tags
         return $this->id;
     }
 
-    public function getTag(): ?string
+    public function getName(): ?string
     {
-        return $this->tag;
+        return $this->name;
     }
 
-    public function setTag(string $tag): static
+    public function setName(string $name): static
     {
-        $this->tag = $tag;
+        $this->name = $name;
 
         return $this;
     }
@@ -107,7 +108,7 @@ class Tags
 
     public function __toString(): string
     {
-        return $this->tag;
+        return $this->name;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -121,4 +122,8 @@ class Tags
 
         return $this;
     }
+
+    
+
+    
 }

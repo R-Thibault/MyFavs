@@ -4,51 +4,46 @@ namespace App\Form;
 
 use App\Entity\Tags;
 use App\Entity\Users;
+use App\Form\TagFormType;
 use App\Entity\FavCardsPrivate;
-
-use Doctrine\ORM\EntityRepository;
-
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
 use Symfony\Component\Form\AbstractType;
-
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormTypeInterface;
+use Symfony\UX\LiveComponent\Form\Type\LiveCollectionType;
 
 class FavCardsPrivateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $Tag = 
+        
 
         $builder
             ->add('title')
             ->add('description')
             ->add('link')
-            ->add('Author', EntityType::class, [
-                'class' => Users::class,
-                'choice_label' => 'nickname',
-                'multiple' => false,
-                'help' => 'This field is automatically filled in.',
+            ->add('Author' )
+            
+            ->add('Tag'
+            , LiveCollectionType::class, [
+                'entry_type' => TagFormType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
-                
-                'attr' => array ('readonly' => true)
-               
             ]
-            )
+        );
             
-            
-        ->add('Tag', EntityType::class, [
-            'class' => Tags::class,
-            'choice_label' => 'tag',
-            'multiple' => true,
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('u')
-                    ->orderBy('u.tag', 'ASC');
-            },
-            'by_reference' => false,
-        ]);
+        // ->add('Tag', EntityType::class, [
+        //     'class' => Tags::class,
+        //     'choice_label' => 'tag',
+        //     'multiple' => true,
+        //     'query_builder' => function (EntityRepository $er) {
+        //         return $er->createQueryBuilder('u')
+        //             ->orderBy('u.tag', 'ASC');
+        //     },
+        //     'by_reference' => false,
+        // ]);
             
     }
 

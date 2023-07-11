@@ -59,11 +59,11 @@ class TagsFixtures extends Fixture
         'projet'  
       ];
   
-      foreach ($tags as $tag) {
-        $newTag = new Tags();
-        $newTag->setTag($tag);
-        $newTag->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-3 months', 'now')));
-        $manager->persist($newTag);
+      foreach ($tags as $name) {
+        $newName = new Tags();
+        $newName->setName($name);
+        $newName->setCreatedAt(\DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-3 months', 'now')));
+        $manager->persist($newName);
     }
   
     $manager->flush();

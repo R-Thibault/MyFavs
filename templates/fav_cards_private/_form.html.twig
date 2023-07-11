@@ -2,11 +2,16 @@
 {{ form_row(form.title)}}
  {{ form_row(form.description)}}
  {{ form_row(form.link)}}
- {{ form_row(form.Tag)}}
+
+        {% for  tag in form.Tag %}
+            {{ form_row(tag.name) }}
+        {% endfor %}
+  
+
  <div class="d-none">
  {{ form_row(form.Author, {'value': app.user.id})}}
  </div>
 
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
