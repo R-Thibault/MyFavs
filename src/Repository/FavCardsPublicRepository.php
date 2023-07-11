@@ -8,6 +8,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\QueryBuilder as ORMQueryBuilder;
 
 /**
  * @extends ServiceEntityRepository<FavCardsPublic>
@@ -19,6 +20,7 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class FavCardsPublicRepository extends ServiceEntityRepository
 {
+    private PaginatorInterface $paginator;
 public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, FavCardsPublic::class);
@@ -48,6 +50,21 @@ public function __construct(ManagerRegistry $registry, PaginatorInterface $pagin
      */
     public function findSearch(SearchData $search) : PaginationInterface
     {   
+
+        $query = $this->getSearchQuery($search)->getQuery();
+
+        
+
+        
+        return $this->paginator->paginate(
+            $query,
+            $search->page,
+            12
+        );
+    }
+
+    private function getSearchQuery(SearchData $search): ORMQueryBuilder
+     {
         $query = $this
         ->createQueryBuilder('favCardsPublic')
         ->select('tag', 'favCardsPublic')
@@ -66,13 +83,9 @@ public function __construct(ManagerRegistry $registry, PaginatorInterface $pagin
                 ->setParameter('tags', $search->tags);
         }
 
-        $query = $query->getQuery();
-        return $this->paginator->paginate(
-            $query,
-            $search->page,
-            12
-        );
-    }
+        return $query;
+
+     }
 
 //    /**
 //     * @return FavCardsPublic[] Returns an array of FavCardsPublic objects

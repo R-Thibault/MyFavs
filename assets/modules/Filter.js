@@ -18,6 +18,8 @@ export default class Filter
     if (element === null) {
       return
     }
+
+    
     
     this.pagination = element.querySelector('.js-filter-pagination')
     this.content = element.querySelector('.js-filter-content')
@@ -71,6 +73,7 @@ export default class Filter
     if (response.status >= 200 && response.status < 300) {
       const data = await response.json()
       this.flipContent(data.content)
+      // this.content.innerHTML = data.content
       this.pagination.innerHTML = data.pagination
       this.sorting.innerHTML = data.sorting
       params.delete('ajax')

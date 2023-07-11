@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.8",
+        "flip-toolkit": "^7.1.0",
         "sass-loader": "^13.3.2"
     }
 }
