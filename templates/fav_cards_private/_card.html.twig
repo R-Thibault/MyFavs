@@ -1,10 +1,11 @@
 <div class="col">
-<div class="card text-center js-filterable" id="cardsPublic-{{card.id}}">
+<div class="card text-center js-filterable" id="cardsPrivate-{{card.id}}">
  
   {# <img src="{{cardsPublic.image}}" alt="" class="card-img-top">#}
   <div class="card-body">
     <h5 class="card-title">{{card.title}}</h5>
     <p class="card-text text-muted">{{card.description}}</p>
+    <a href="{{card.link}}" class="btn btn-primary my-1">Aller sur le site</a>
     <p class="card-text text-muted">{{card.Author.nickname}}</p>
   </div>
   <div class="m-1">

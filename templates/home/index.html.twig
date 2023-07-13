@@ -10,7 +10,6 @@
     <div class="row">
     <div class="col-md-2 ">
             {% include 'home/_filter.html.twig' with {form : form} only %}
-
         </div>
     <div class="col-md-10">
     <div class="d-flex justify-content-end m-2 js-filter-sorting">
@@ -19,8 +18,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4 js-filter-content" data-masonry='{"percentPosition": true }'>
     {% include 'home/_gallery.html.twig' %}
     </div>
-    <div class="mt-4 js-filter-pagination">
-                
+    <div class="mt-4 js-filter-pagination">   
                     {% include 'home/_pagination.html.twig' %}
                 </div>
     </div>

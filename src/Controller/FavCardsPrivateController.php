@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\FavCardsPrivate;
+use App\Data\SearchData;
+use App\Form\SearchDataForm;
 use App\Entity\FavCardsPublic;
 use App\Form\FavCardsPrivateType;
 use App\Form\CardRequestFormType;
@@ -11,21 +13,51 @@ use App\Repository\FavCardsPrivateRepository;
 use App\Repository\FavCardsPublicRepository;
 use App\Repository\TagsRepository;
 use Doctrine\ORM\EntityManager;
+use App\Dto\ValueObject;
+use App\Dto\ValueObjectPublicProperties;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use stdClass;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/fav/cards/private', name: 'app_fav_cards_private')]
 class FavCardsPrivateController extends AbstractController
 {
     #[Route('/display', name: '_display', methods: ['GET'])]
-    public function display(FavCardsPrivateRepository $favCardsPrivateRepository): Response
+    public function display(FavCardsPrivateRepository $favCardsPrivateRepository, Request $request): Response
     {
         $user = $this->getUser();
-        $cardsPrivate= $favCardsPrivateRepository->findBy(['Author' => $user]);
-        return $this->render('fav_cards_private/display.html.twig', compact('cardsPrivate'));
+        // $cardsPrivate= $favCardsPrivateRepository->findBy(['Author' => $user]);
+        
+        $data = new SearchData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchDataForm::class, $data);
+        $form->handleRequest($request);
+
+
+        $favCardsPrivate = $favCardsPrivateRepository->findSearch($data, $user);
+        
+
+        if($request->get('ajax'))
+        {
+            return new JsonResponse([
+                'content' => $this->renderView('fav_cards_private/_gallery.html.twig', ['favCardsPrivate' => $favCardsPrivate]),
+                'pagination' => $this->renderView('fav_cards_private/_pagination.html.twig', ['favCardsPrivate' => $favCardsPrivate]),
+                'sorting' => $this->renderView('fav_cards_private/_sorting.html.twig', ['favCardsPrivate' => $favCardsPrivate]),
+            ]);
+        }
+        return $this->render('fav_cards_private/display.html.twig', [
+            'favCardsPrivate' => $favCardsPrivate,
+            'user' => $user,
+            //  'cardsPrivate' => $cardsPrivate,
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/', name: '_index', methods: ['GET'])]
@@ -67,7 +99,7 @@ class FavCardsPrivateController extends AbstractController
     #[Route('/{id}/edit', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FavCardsPrivate $favCardsPrivate, TagsRepository $tagsRepository, EntityManagerInterface $entityManager, FavCardsPrivateRepository $favCardsPrivateRepository): Response
     {
-        $favCardsPrivate = $favCardsPrivateRepository->findSearch();
+        // $favCardsPrivate = $favCardsPrivateRepository->findSearch();
 
         $form = $this->createForm(FavCardsPrivateType::class, $favCardsPrivate);
         $form->handleRequest($request);
